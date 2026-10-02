@@ -1,0 +1,684 @@
+/* ==========================================================================
+   Mansalvic Consulting LLC - Extra Long Leaf Cards & Animated Duolingo Characters
+   ========================================================================== */
+
+.services-section {
+  padding: 80px 20px 110px 20px;
+  width: 100%;
+  max-width: 1540px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.services-header {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto 64px auto;
+}
+
+.services-pill {
+  margin-bottom: 16px;
+}
+
+.services-title {
+  font-size: clamp(2.1rem, 3.8vw, 3rem);
+  font-weight: 800;
+  margin-top: 12px;
+  color: var(--emerald-900);
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+.services-subtitle {
+  color: var(--emerald-900);
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-top: 16px;
+  line-height: 1.7;
+}
+
+/* ==========================================================================
+   Extra Long Leaf Cards (Spanning Across the Entire Screen from Left to Right)
+   ========================================================================== */
+.leaf-wide-list {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+}
+
+/* Individual Long Leaf Card */
+.leaf-card-wide {
+  position: relative;
+  width: 100%;
+  min-height: 200px;
+  background: linear-gradient(135deg, var(--white) 0%, var(--emerald-50) 32%, var(--jade-100) 100%);
+  border: 2px solid rgba(5, 150, 105, 0.32);
+  padding: 36px 44px;
+  box-shadow: 0 14px 45px rgba(5, 150, 105, 0.09);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* Primary Leaf Top Summary Row */
+.leaf-card-main-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+/* Alternating Long Organic Leaf Tip Contours */
+.leaf-tip-left {
+  border-radius: 110px 24px 110px 24px;
+}
+
+.leaf-tip-right {
+  border-radius: 24px 110px 24px 110px;
+}
+
+/* Leaf Vein Watermark traversing horizontally across the leaf */
+.leaf-card-wide::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 340px;
+  height: 100%;
+  background: radial-gradient(circle at 100% 50%, rgba(5, 150, 105, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Central Horizontal Leaf Vein */
+.leaf-card-wide::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 80px;
+  right: 80px;
+  height: 3.5px;
+  background: linear-gradient(90deg, rgba(31, 122, 85, 0.5) 0%, rgba(30, 90, 138, 0.35) 45%, transparent 100%);
+  opacity: 0.65;
+  border-radius: 3px;
+}
+
+/* Hover Interaction: Only translate, no scale to prevent sibling resizing */
+.leaf-card-wide:hover {
+  transform: translateY(-4px);
+  border-color: var(--emerald-600);
+  box-shadow: 0 20px 48px rgba(5, 150, 105, 0.16);
+  background: linear-gradient(135deg, var(--white) 0%, var(--jade-100) 28%, var(--emerald-50) 100%);
+}
+
+/* Active Expanded State for Only the Clicked Leaf */
+.leaf-card-wide.is-expanded {
+  border-color: var(--emerald-600);
+  box-shadow: 0 24px 60px rgba(5, 150, 105, 0.22);
+  background: linear-gradient(135deg, var(--white) 0%, var(--emerald-50) 25%, var(--jade-100) 100%);
+}
+
+/* Left Section: Duolingo Character & Service Title */
+.leaf-left-group {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex: 0 0 320px;
+  max-width: 320px;
+}
+
+/* Duolingo Character Container & Nametag (QA-011) */
+.leaf-mascot-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.leaf-mascot-nametag {
+  background: var(--jade-100);
+  border: 1px solid rgba(31, 122, 85, 0.4);
+  color: var(--emerald-900);
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 2px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  box-shadow: 0 2px 6px rgba(11, 61, 46, 0.08);
+}
+
+.duolingo-character-box {
+  width: 90px;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  filter: drop-shadow(0 6px 12px rgba(5, 150, 105, 0.18));
+}
+
+/* Keyframe Animations for Duolingo Characters */
+@keyframes duolingoBob {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-7px) rotate(-1.5deg); }
+}
+
+@keyframes duolingoBob2 {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(2deg); }
+}
+
+@keyframes duolingoBlink {
+  0%, 90%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.08); }
+}
+
+@keyframes duolingoArmWave {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-7deg); }
+}
+
+.duo-arm-wave {
+  transform-origin: 26px 84px;
+  animation: duolingoArmWave 2.4s ease-in-out infinite;
+}
+
+@keyframes duolingoItemGlow {
+  0%, 100% { opacity: 0.85; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.12); }
+}
+
+.duo-character-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  animation: duolingoBob 3.2s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+.duo-character-svg-2 {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  animation: duolingoBob2 3.6s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+.duo-eye-blink {
+  transform-origin: 50% 50%;
+  animation: duolingoBlink 4.2s infinite;
+}
+
+.duo-glow-prop {
+  animation: duolingoItemGlow 2.5s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* Mascot Name Tag */
+.leaf-mascot-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.leaf-mascot-nametag {
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: var(--emerald-800);
+  background: rgba(5, 150, 105, 0.12);
+  border: 1px solid rgba(5, 150, 105, 0.25);
+  padding: 1px 8px;
+  border-radius: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Title & Badge Group */
+.leaf-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.leaf-badge-wide {
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--emerald-900);
+  background: var(--jade-100);
+  padding: 4px 12px;
+  border-radius: 16px;
+  border: 1px solid var(--jade-300);
+  display: inline-block;
+  align-self: flex-start;
+}
+
+.leaf-title-wide {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--emerald-900);
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* Center Section: 1-2 Liner Business Growth Text */
+.leaf-center-growth {
+  flex: 1 1 auto;
+  min-width: 280px;
+  padding: 0 16px;
+}
+
+.leaf-growth-text-wide {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--ink-700);
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Right Section: Action Button */
+.leaf-right-action {
+  flex-shrink: 0;
+}
+
+.leaf-action-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.leaf-secondary-link {
+  background: transparent;
+  border: none;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--lapis-600);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.2s ease;
+}
+
+.leaf-secondary-link:hover {
+  color: var(--emerald-900);
+}
+
+.leaf-action-btn-wide {
+  padding: 16px 32px;
+  font-size: 0.98rem;
+  font-weight: 700;
+  border-radius: 36px 10px 36px 10px;
+  background: var(--white);
+  color: var(--emerald-900);
+  border: 1.5px solid rgba(5, 150, 105, 0.45);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 16px rgba(5, 150, 105, 0.1);
+}
+
+.leaf-action-btn-wide.active {
+  background: var(--emerald-600);
+  color: var(--white);
+  border-color: var(--emerald-600);
+  box-shadow: 0 6px 20px rgba(5, 150, 105, 0.28);
+}
+
+/* ==========================================================================
+   Expanded Single-Leaf Question Line Drawer
+   ========================================================================== */
+.leaf-drawer-container {
+  width: 100%;
+  margin-top: 36px;
+  padding-top: 32px;
+  border-top: 1.5px dashed rgba(5, 150, 105, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  animation: leafDrawerSlideDown 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes leafDrawerSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.leaf-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.leaf-drawer-title-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.leaf-drawer-pill {
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--emerald-600);
+  background: rgba(5, 150, 105, 0.1);
+  padding: 4px 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(5, 150, 105, 0.25);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+}
+
+.leaf-drawer-heading {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--emerald-900);
+  margin: 0;
+}
+
+.leaf-drawer-highlight {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--white);
+  border: 1.5px solid rgba(5, 150, 105, 0.3);
+  padding: 8px 18px;
+  border-radius: 24px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--emerald-900);
+  box-shadow: 0 2px 8px rgba(5, 150, 105, 0.08);
+}
+
+.leaf-questions-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.leaf-question-block {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(5, 150, 105, 0.22);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 4px 14px rgba(11, 30, 54, 0.03);
+}
+
+.leaf-question-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--emerald-900);
+  letter-spacing: -0.01em;
+}
+
+.leaf-options-flex {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.leaf-option-pill {
+  width: 100%;
+  text-align: left;
+  background: var(--slate-bg);
+  border: 1.5px solid var(--slate-border);
+  color: var(--ink-700);
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.leaf-option-pill:hover {
+  border-color: var(--emerald-600);
+  background: rgba(5, 150, 105, 0.06);
+  color: var(--emerald-900);
+}
+
+.leaf-option-pill.selected {
+  border-color: var(--emerald-600);
+  background: var(--jade-100);
+  color: var(--emerald-900);
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(5, 150, 105, 0.15);
+}
+
+.leaf-pill-check {
+  color: var(--emerald-600);
+  flex-shrink: 0;
+}
+
+.leaf-drawer-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(5, 150, 105, 0.15);
+}
+
+.leaf-drawer-footer-note {
+  font-size: 0.88rem;
+  color: var(--ink-700);
+  max-width: 580px;
+  line-height: 1.5;
+}
+
+.leaf-drawer-btn-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.leaf-submit-inquiry-btn {
+  padding: 12px 24px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  border-radius: 10px;
+}
+
+.leaf-collapse-btn {
+  background: var(--marble-100);
+  border: 1.5px solid var(--border-card);
+  color: var(--ink-700);
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.leaf-collapse-btn:hover {
+  background: var(--marble-200);
+  color: var(--emerald-900);
+}
+
+/* Leaf Drawer Notes & Skip to Appointment */
+.leaf-drawer-notes-block {
+  margin-top: 18px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(5, 150, 105, 0.25);
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.leaf-drawer-notes-label {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--emerald-900);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.leaf-drawer-textarea {
+  width: 100%;
+  border: 1.5px solid var(--border-card);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  color: var(--ink-900);
+  background: var(--white);
+  resize: vertical;
+  min-height: 52px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.leaf-drawer-textarea:focus {
+  border-color: var(--emerald-600);
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
+}
+
+.btn-skip-appointment {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-skip-appointment.disabled {
+  background: var(--marble-200);
+  color: var(--ink-500);
+  border: 1px solid var(--border-card);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.btn-skip-appointment.active {
+  background: var(--emerald-600);
+  color: var(--white);
+  border: 1px solid var(--emerald-700);
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.3);
+  animation: pulseSkipBtn 2s infinite;
+}
+
+.btn-skip-appointment.active:hover {
+  background: var(--emerald-700);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(5, 150, 105, 0.4);
+}
+
+@keyframes pulseSkipBtn {
+  0%, 100% { box-shadow: 0 4px 14px rgba(5, 150, 105, 0.3); }
+  50% { box-shadow: 0 4px 22px rgba(5, 150, 105, 0.55); }
+}
+
+/* Services Banner at bottom */
+.services-banner-wide {
+  margin-top: 64px;
+  padding: 40px 54px;
+  width: 100%;
+  background: linear-gradient(135deg, var(--white) 0%, rgba(30, 90, 138, 0.08) 100%);
+  border: 1.5px solid var(--border-card);
+  border-radius: 40px 10px 40px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+  box-shadow: 0 8px 30px rgba(11, 30, 54, 0.05);
+}
+
+.services-banner-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--emerald-900);
+}
+
+.services-banner-desc {
+  font-size: 0.98rem;
+  color: var(--ink-900);
+  margin-top: 6px;
+}
+
+/* Responsive adjustments for mobile/tablet */
+@media (max-width: 1080px) {
+  .leaf-card-main-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 28px;
+  }
+
+  .leaf-card-wide {
+    padding: 38px 28px;
+  }
+
+  .leaf-left-group {
+    min-width: unset;
+    max-width: 100%;
+    flex: unset;
+  }
+
+  .leaf-center-growth {
+    padding: 0;
+  }
+
+  .leaf-action-btn-wide {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .leaf-questions-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .leaf-drawer-btn-group {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .leaf-submit-inquiry-btn,
+  .leaf-collapse-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+

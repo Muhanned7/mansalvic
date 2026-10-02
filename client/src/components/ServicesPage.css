@@ -1,0 +1,438 @@
+/* ==========================================================================
+   ServicesPage Component Styles (Indo-Islamic Sustainable Theme - DES-001)
+   ========================================================================== */
+
+.services-page-container {
+  padding-top: 120px;
+  padding-bottom: 100px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.breadcrumb-btn {
+  background: transparent;
+  border: none;
+  color: var(--emerald-600);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  margin-bottom: 20px;
+  transition: color 0.2s ease;
+}
+
+.breadcrumb-btn:hover {
+  color: var(--emerald-900);
+}
+
+.services-page-header {
+  text-align: center;
+  max-width: 880px;
+  margin: 0 auto 50px auto;
+}
+
+.services-page-title {
+  font-size: clamp(2rem, 3.8vw, 3.2rem);
+  font-weight: 600;
+  color: var(--emerald-900);
+  line-height: 1.2;
+  margin-top: 14px;
+  margin-bottom: 18px;
+}
+
+.services-page-subtitle {
+  font-size: 1.15rem;
+  color: var(--ink-700);
+  line-height: 1.7;
+}
+
+/* Detailed Service Cards */
+.services-list {
+  display: grid;
+  gap: 40px;
+  margin-bottom: 70px;
+}
+
+.service-detail-card {
+  padding: 38px 42px;
+  border: 1px solid var(--border-card);
+  border-top: 3px solid var(--gold-500);
+  border-radius: 18px;
+  background: var(--bg-card);
+  box-shadow: 0 8px 30px rgba(11, 61, 46, 0.06);
+  transition: all 0.3s ease;
+  scroll-margin-top: 110px;
+  position: relative;
+}
+
+.service-anchor-span {
+  display: block;
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  scroll-margin-top: 110px;
+}
+
+.service-detail-card:hover {
+  border-color: var(--gold-500);
+  box-shadow: 0 12px 35px rgba(11, 61, 46, 0.12);
+}
+
+.service-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.service-card-brand-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.service-card-icon-box {
+  width: 54px;
+  height: 54px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.service-badge-text {
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.service-card-heading {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--emerald-900);
+}
+
+.service-summary-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--ink-700);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.service-overview-text {
+  font-size: 0.98rem;
+  color: var(--ink-500);
+  line-height: 1.65;
+  margin-bottom: 28px;
+}
+
+/* Capabilities Breakdown Box */
+.capabilities-box {
+  background: var(--marble-50);
+  border: 1px solid var(--border-card);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin-bottom: 24px;
+}
+
+.capabilities-title {
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--emerald-900);
+  margin-bottom: 16px;
+}
+
+.capabilities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 14px 24px;
+}
+
+.capability-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.92rem;
+  color: var(--ink-900);
+  line-height: 1.45;
+}
+
+.capability-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Deliverables Row */
+.deliverables-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-top: 16px;
+  border-top: 1px solid var(--marble-100);
+}
+
+.deliverables-label {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--ink-500);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.deliverable-pill {
+  background: var(--jade-100);
+  color: var(--emerald-800);
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ==========================================================================
+   Enterprise SLA Tiers Section (QA-015 Spec Alignment)
+   ========================================================================== */
+.services-sla-section {
+  margin-bottom: 70px;
+}
+
+.services-sla-header {
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto 36px auto;
+}
+
+.services-sla-heading {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 600;
+  color: var(--emerald-900);
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.services-sla-subtitle {
+  font-size: 1.05rem;
+  color: var(--ink-700);
+  line-height: 1.6;
+}
+
+.services-sla-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 24px;
+}
+
+.sla-tier-card {
+  padding: 32px 28px;
+  border-top: 3px solid var(--border-card);
+  border-radius: 16px;
+  background: var(--bg-card);
+  display: flex;
+  flex-direction: column;
+}
+
+.sla-tier-featured {
+  border-top: 4px solid var(--gold-500);
+  box-shadow: 0 10px 30px rgba(201, 162, 39, 0.16);
+  position: relative;
+  background: linear-gradient(180deg, var(--white) 0%, var(--marble-50) 100%);
+}
+
+.sla-tier-badge {
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-500);
+  margin-bottom: 8px;
+}
+
+.sla-tier-badge-featured {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--emerald-900);
+  background: var(--gold-400);
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+  width: fit-content;
+}
+
+.sla-tier-title {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--emerald-900);
+  margin-bottom: 6px;
+}
+
+.sla-tier-uptime {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--emerald-600);
+  margin-bottom: 12px;
+}
+
+.sla-tier-desc {
+  font-size: 0.9rem;
+  color: var(--ink-500);
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.sla-tier-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: auto;
+  border-top: 1px solid var(--marble-100);
+  padding-top: 18px;
+}
+
+.sla-tier-features li {
+  font-size: 0.88rem;
+  color: var(--ink-900);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sla-feature-icon {
+  color: var(--emerald-600);
+  flex-shrink: 0;
+}
+
+/* Consultation Banner */
+.services-cta-banner {
+  padding: 44px;
+  background: linear-gradient(135deg, var(--emerald-900) 0%, var(--emerald-800) 50%, var(--emerald-950) 100%);
+  border: 1px solid var(--gold-500);
+  border-radius: 18px;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 28px;
+  box-shadow: 0 16px 40px rgba(11, 61, 46, 0.25);
+}
+
+.services-cta-content {
+  max-width: 680px;
+}
+
+.services-cta-tag {
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--gold-400);
+}
+
+.services-cta-heading {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-top: 6px;
+}
+
+.services-cta-desc {
+  color: var(--marble-100);
+  font-size: 1.05rem;
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+.services-cta-btn {
+  background: var(--gold-500);
+  color: var(--emerald-900);
+  padding: 14px 30px;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+}
+
+.services-cta-btn:hover {
+  background: var(--gold-400);
+  color: var(--emerald-900);
+  box-shadow: 0 8px 25px rgba(201, 162, 39, 0.4);
+}
+
+.services-cta-skip-btn {
+  white-space: normal !important;
+  max-width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .services-page-container {
+    padding-top: 90px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .service-detail-card {
+    padding: 24px 18px;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .capabilities-box {
+    padding: 18px 14px;
+  }
+  .services-cta-banner {
+    padding: 28px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .services-page-container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .service-detail-card {
+    padding: 20px 14px;
+    border-radius: 14px;
+  }
+  .service-detail-card * {
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .services-cta-btn,
+  .services-cta-skip-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 14px !important;
+    font-size: 0.9rem !important;
+  }
+}

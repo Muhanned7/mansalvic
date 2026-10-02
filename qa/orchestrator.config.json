@@ -1,0 +1,9 @@
+{
+  "PollSeconds": 3,
+  "QuietSeconds": 20,
+  "MaxRounds": 10,
+  "StartHandledQA": 3,
+  "StartHandledDEV": 0,
+  "QaCommand":  "claude -p \"Read qa/qa-prompt.md and follow it exactly.\" --max-turns 60 --permission-mode acceptEdits",
+  "DevCommand": "claude -p \"Read qa/dev-prompt.md and follow it exactly.\" --max-turns 80 --permission-mode acceptEdits"
+}

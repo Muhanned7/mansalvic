@@ -1,0 +1,373 @@
+/* ==========================================================================
+   Mansalvic Consulting LLC - Design System & Indo-Islamic Sustainable Theme (DES-001)
+   Palette & Architecture inspired by Sustainable Energy Ecosystems & Indo-Islamic Geometry
+   ========================================================================== */
+
+:root {
+  /* Core Indo-Islamic Sustainable Energy Palette (DES-001 Brief) */
+  --emerald-900: #0B3D2E;  /* Primary dark, header, dark CTA */
+  --emerald-800: #124D3B;  /* Deep evergreen */
+  --emerald-600: #1F7A55;  /* Primary actions, active highlights */
+  --emerald-500: #299368;  /* Vibrant leaf green */
+  --jade-300:    #7FC8A9;  /* Hover accents, available-day dots */
+  --jade-100:    #E8F6F0;  /* Subtle tinted green backgrounds */
+  
+  --marble-50:   #FAF7F0;  /* Page background & pure organic surfaces */
+  --marble-100:  #F2EDE2;  /* Slightly toned architectural stone */
+  --marble-200:  #E6DFCF;  /* Architectural border */
+
+  --sandstone-500: #B5653A; /* Red Fort / Humayun's Tomb terracotta accent */
+  --sandstone-100: #F9ECE4; /* Warm sandstone wash */
+
+  --gold-500:    #C9A227;  /* Fine lines, star motifs, focus ring accents */
+  --gold-400:    #D8B23E;  /* Bright gold highlight */
+  --gold-100:    #FBF6E5;  /* Light gold illumination */
+
+  --lapis-600:   #1E5A8A;  /* Charbagh water channel blue & links */
+  --lapis-100:   #EDF4FB;  /* Light lapis pool tint */
+
+  --ink-900:     #14201B;  /* High-contrast body text (WCAG AA > 11:1 on marble) */
+  --ink-700:     #2B3D35;  /* Secondary text */
+  --ink-500:     #556B61;  /* Subtle captions & descriptors */
+
+  --white:       #FFFFFF;
+  --surface-white: #FFFFFF;
+  --emerald-950: #07261D;
+  --emerald-700: #186043;
+  --emerald-400: #34A876;
+  --emerald-200: #A8DEC5;
+  --emerald-50:  #F0FDF7;
+  --slate-border: #DDE5E0;
+  --slate-bg:    #F4F7F5;
+  --error-red:   #DC2626;
+  --error-bg:    #FEF2F2;
+  --error-border: #FCA5A5;
+  --brand-meet:  #00897B;
+  --brand-zoom:  #2D8CFF;
+
+  /* Legacy & Semantic Bindings */
+  --bg-dark: var(--marble-50);
+  --bg-gradient: linear-gradient(180deg, #F5EFE4 0%, #FAF7F0 60%, #FAF7F0 100%);
+  --bg-card: var(--white);
+  --bg-card-hover: var(--white);
+  --border-card: #E4DDD1;
+  --border-card-hover: var(--gold-500);
+
+  --primary-navy: var(--emerald-900);
+  --primary-blue: var(--emerald-600);
+  --accent-green: var(--emerald-600);
+  --accent-teal:  var(--jade-300);
+
+  --text-main:  var(--ink-900);
+  --text-muted: var(--ink-700);
+  --text-dim:   var(--ink-500);
+
+  --font-heading: 'Marcellus', 'Outfit', Georgia, serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --shadow-card: 0 4px 20px rgba(11, 61, 46, 0.08);
+  --shadow-hover: 0 12px 35px rgba(11, 61, 46, 0.16);
+  --gold-glow: 0 0 16px rgba(201, 162, 39, 0.3);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--marble-50);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--emerald-900);
+  letter-spacing: -0.01em;
+  font-weight: 600;
+}
+
+/* Custom Scrollbar with Emerald & Gold Touch */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--marble-100);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--jade-300);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--emerald-600);
+}
+
+/* Jali (Pierced Lattice) Pattern Background Texture (A2: Never > 8% opacity) */
+.jali-texture-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill='none' stroke='%230B3D2E' stroke-width='1'%3E%3Cpolygon points='20,2 25,15 38,20 25,25 20,38 15,25 2,20 15,15'/%3E%3Ccircle cx='20' cy='20' r='5'/%3E%3Crect x='0' y='0' width='40' height='40'/%3E%3C/g%3E%3C/svg%3E");
+  z-index: 0;
+}
+
+/* Girih 8-Point Star Section Divider */
+.girih-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 32px auto;
+  max-width: 600px;
+}
+.girih-divider-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-500), transparent);
+}
+.girih-divider-star {
+  width: 18px;
+  height: 18px;
+  color: var(--gold-500);
+  flex-shrink: 0;
+}
+
+/* Architectural Cusped Arch Top Framing */
+.arch-frame {
+  border-radius: 20px 20px 14px 14px;
+  position: relative;
+  overflow: hidden;
+  border-top: 3px solid var(--gold-500);
+}
+
+/* Corporate Cards with Indo-Islamic Structural Refinement */
+.glass-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 14px;
+  box-shadow: var(--shadow-card);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.glass-panel:hover {
+  border-color: var(--border-card-hover);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-3px);
+}
+
+.glass-pill {
+  background: var(--jade-100);
+  border: 1px solid rgba(31, 122, 85, 0.25);
+  color: var(--emerald-800);
+  padding: 6px 16px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+}
+
+/* Primary Action Button (Emerald & Gold) */
+.btn-primary {
+  background: var(--emerald-900);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 700;
+  padding: 13px 26px;
+  border-radius: 8px;
+  border: 1px solid var(--emerald-800);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.96rem;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 15px rgba(11, 61, 46, 0.25);
+  white-space: nowrap;
+}
+
+.btn-primary:hover {
+  background: var(--emerald-600);
+  border-color: var(--gold-500);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(31, 122, 85, 0.35);
+}
+
+/* Secondary Button (Marble / Sandstone & Gold Line) */
+.btn-secondary {
+  background: var(--white);
+  color: var(--emerald-900);
+  font-family: var(--font-body);
+  font-weight: 700;
+  padding: 13px 24px;
+  border-radius: 8px;
+  border: 1px solid var(--border-card);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.96rem;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(11, 61, 46, 0.05);
+  white-space: nowrap;
+}
+
+.btn-secondary:hover {
+  background: var(--marble-100);
+  border-color: var(--gold-500);
+  color: var(--emerald-800);
+}
+
+.btn-admin {
+  background: rgba(11, 61, 46, 0.06);
+  border: 1px solid rgba(11, 61, 46, 0.2);
+  color: var(--emerald-900);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-admin:hover {
+  background: var(--emerald-900);
+  color: var(--white);
+}
+
+/* Gradient Text */
+.text-gradient {
+  background: linear-gradient(135deg, var(--emerald-900) 20%, var(--emerald-600) 80%, var(--gold-500) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-eco {
+  background: linear-gradient(135deg, var(--emerald-600) 0%, var(--gold-500) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Modal Overlay & Arch Framing */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(11, 61, 46, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  background: var(--white);
+  border: 1px solid var(--border-card);
+  border-top: 4px solid var(--gold-500);
+  border-radius: 18px;
+  width: 100%;
+  max-width: 680px;
+  padding: 36px;
+  position: relative;
+  box-shadow: 0 25px 60px rgba(11, 61, 46, 0.3);
+  max-height: 90vh;
+  overflow-y: auto;
+  color: var(--ink-900);
+}
+
+.option-card {
+  background: var(--marble-50);
+  border: 1px solid var(--border-card);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.2s ease;
+}
+
+.option-card:hover {
+  background: var(--jade-100);
+  border-color: var(--emerald-600);
+  transform: translateX(4px);
+}
+
+.option-card.selected {
+  background: var(--jade-100);
+  border-color: var(--emerald-600);
+  box-shadow: 0 0 12px rgba(31, 122, 85, 0.2);
+}
+
+.form-input {
+  width: 100%;
+  background: var(--white);
+  border: 1px solid var(--border-card);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: var(--ink-900);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  margin-bottom: 16px;
+  transition: all 0.2s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--emerald-600);
+  box-shadow: 0 0 0 3px rgba(31, 122, 85, 0.2);
+}
+
+/* Animations & Reduced Motion (A4) */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.pulse-dot {
+  width: 10px;
+  height: 10px;
+  background-color: var(--emerald-600);
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 10px var(--emerald-600);
+  animation: pulseGlow 2s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

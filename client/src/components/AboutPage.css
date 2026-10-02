@@ -1,0 +1,324 @@
+/* ==========================================================================
+   AboutPage Component Styles (Indo-Islamic Sustainable Theme - DES-001)
+   ========================================================================== */
+
+.about-page-container {
+  padding-top: 120px;
+  padding-bottom: 100px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.about-page-header {
+  text-align: center;
+  max-width: 860px;
+  margin: 0 auto 40px auto;
+}
+
+.about-page-title {
+  font-size: clamp(2rem, 3.8vw, 3.2rem);
+  font-weight: 600;
+  color: var(--emerald-900);
+  line-height: 1.2;
+  margin-top: 12px;
+  margin-bottom: 16px;
+}
+
+.about-page-subtitle {
+  font-size: 1.15rem;
+  color: var(--ink-700);
+  line-height: 1.7;
+}
+
+/* Core Corporate Statement Box (Hero Feature) */
+.about-statement-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-top: 3px solid var(--gold-500);
+  border-radius: 20px;
+  padding: 44px 50px;
+  margin-bottom: 50px;
+  box-shadow: 0 10px 35px rgba(11, 61, 46, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-statement-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle at 100% 0%, rgba(31, 122, 85, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.about-statement-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--emerald-800);
+  background: var(--jade-100);
+  padding: 5px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(31, 122, 85, 0.25);
+  margin-bottom: 18px;
+}
+
+.about-statement-text {
+  font-family: var(--font-heading);
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  font-weight: 600;
+  color: var(--emerald-900);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* 3-Column Corporate Pillars / Values */
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  gap: 28px;
+  margin-bottom: 50px;
+}
+
+.about-card {
+  padding: 34px 28px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-top: 3px solid var(--border-card);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(11, 61, 46, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.25s ease;
+}
+
+.about-card:hover {
+  border-top-color: var(--gold-500);
+  border-color: var(--gold-500);
+  box-shadow: 0 10px 30px rgba(11, 61, 46, 0.12);
+  transform: translateY(-2px);
+}
+
+.about-card-icon-box {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.about-card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--emerald-900);
+  margin-bottom: 12px;
+}
+
+.about-card-desc {
+  font-size: 0.94rem;
+  color: var(--ink-700);
+  line-height: 1.65;
+}
+
+/* Global Delivery & Outsourcing Spotlight */
+.about-hq-banner {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-top: 3px solid var(--gold-500);
+  border-radius: 20px;
+  padding: 44px 50px;
+  margin-bottom: 50px;
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr;
+  gap: 40px;
+  align-items: center;
+  box-shadow: 0 10px 35px rgba(11, 61, 46, 0.08);
+}
+
+.about-hq-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--emerald-900);
+  margin-bottom: 14px;
+}
+
+.about-hq-text {
+  font-size: 1.02rem;
+  color: var(--ink-700);
+  line-height: 1.65;
+  margin-bottom: 24px;
+}
+
+.about-hq-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.about-hq-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.94rem;
+  font-weight: 600;
+  color: var(--ink-900);
+}
+
+.about-hq-card {
+  background: var(--marble-50);
+  border: 1px solid var(--border-card);
+  border-radius: 14px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.about-hq-metric {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: var(--emerald-600);
+}
+
+.about-hq-metric-label {
+  font-size: 0.88rem;
+  color: var(--ink-500);
+  line-height: 1.45;
+}
+
+/* Consultation Banner */
+.about-cta-banner {
+  padding: 44px;
+  background: linear-gradient(135deg, var(--emerald-900) 0%, var(--emerald-800) 60%, var(--emerald-950) 100%);
+  border: 1px solid var(--gold-500);
+  border-radius: 18px;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 28px;
+  box-shadow: 0 16px 40px rgba(11, 61, 46, 0.25);
+}
+
+.about-cta-content {
+  max-width: 680px;
+}
+
+.about-cta-tag {
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--gold-400);
+}
+
+.about-cta-heading {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-top: 6px;
+}
+
+.about-cta-desc {
+  color: var(--marble-100);
+  font-size: 1.05rem;
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+.about-cta-btn {
+  background: var(--gold-500);
+  color: var(--emerald-900);
+  padding: 14px 30px;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+}
+
+.about-cta-btn:hover {
+  background: var(--gold-400);
+  color: var(--emerald-900);
+  box-shadow: 0 8px 25px rgba(201, 162, 39, 0.4);
+}
+
+@media (max-width: 860px) {
+  .about-statement-card {
+    padding: 32px 22px;
+  }
+
+  .about-hq-banner {
+    grid-template-columns: 1fr;
+    padding: 30px 20px;
+    gap: 24px;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .about-hq-banner > div {
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .about-hq-title {
+    font-size: clamp(1.35rem, 5vw, 1.8rem);
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  .about-hq-text {
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  .about-hq-item {
+    font-size: 0.88rem;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    align-items: flex-start;
+  }
+
+  .about-cta-banner {
+    padding: 28px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-page-container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .about-statement-card {
+    padding: 24px 14px;
+    border-radius: 14px;
+  }
+
+  .about-hq-banner {
+    padding: 24px 14px;
+    border-radius: 14px;
+  }
+
+  .about-cta-banner {
+    padding: 24px 14px;
+    border-radius: 14px;
+  }
+}

@@ -1,0 +1,322 @@
+/* ==========================================================================
+   QuestionnaireModal Component Styles (Dynamic Question Lines)
+   ========================================================================== */
+
+.modal-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: var(--marble-100);
+  border: 1px solid var(--border-card);
+  color: var(--ink-500);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modal-close-btn:hover {
+  background: var(--marble-200);
+  color: var(--emerald-900);
+}
+
+.modal-header-box {
+  margin-bottom: 24px;
+}
+
+.modal-step-badge {
+  font-size: 0.75rem;
+  padding: 4px 12px;
+  color: var(--emerald-900);
+  background: var(--lapis-100);
+  border: 1px solid var(--border-card);
+}
+
+.modal-dialogue-tag {
+  font-size: 0.85rem;
+  color: var(--ink-500);
+  font-weight: 600;
+}
+
+.modal-progress-track {
+  width: 100%;
+  height: 4px;
+  background: var(--marble-200);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 12px;
+}
+
+.modal-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--emerald-600) 0%, var(--lapis-600) 100%);
+  transition: width 0.3s ease;
+}
+
+.modal-error-banner {
+  background: var(--error-bg);
+  border: 1px solid var(--error-border);
+  color: var(--error-red);
+  padding: 12px 16px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+.modal-question-heading {
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: var(--emerald-900);
+  line-height: 1.3;
+}
+
+.modal-question-subtitle {
+  color: var(--ink-700);
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.modal-input-label {
+  font-size: 0.85rem;
+  color: var(--emerald-900);
+  font-weight: 700;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.modal-textarea {
+  resize: vertical;
+  color: var(--ink-900);
+  background: var(--slate-bg);
+  border: 1.5px solid var(--border-card);
+}
+
+.modal-nav-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 28px;
+  border-top: 1px solid var(--border-card);
+  padding-top: 20px;
+}
+
+/* Success State */
+.modal-success-box {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.modal-success-icon-wrap {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--jade-100);
+  border: 2px solid var(--emerald-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px auto;
+  box-shadow: 0 0 30px rgba(5, 150, 105, 0.2);
+}
+
+.modal-success-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--emerald-900);
+  margin-bottom: 12px;
+}
+
+.modal-success-desc {
+  color: var(--ink-700);
+  font-size: 1.05rem;
+  max-width: 500px;
+  margin: 0 auto 24px auto;
+  line-height: 1.6;
+}
+
+.modal-receipt-box {
+  background: var(--slate-bg);
+  border: 1px solid var(--border-card);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: left;
+  margin-bottom: 28px;
+}
+
+.modal-receipt-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.modal-receipt-badge {
+  font-size: 0.75rem;
+  background: var(--jade-100);
+  color: var(--emerald-900);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+.modal-receipt-line {
+  font-size: 0.9rem;
+  color: var(--ink-700);
+  margin-bottom: 6px;
+}
+
+.modal-receipt-label {
+  color: var(--emerald-900);
+  font-weight: 700;
+}
+
+/* Skip to Appointment Callout Box */
+.skip-appointment-box {
+  background: linear-gradient(135deg, var(--slate-bg) 0%, var(--jade-100) 100%);
+  border: 1.5px dashed var(--jade-300);
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.skip-appointment-text {
+  flex: 1;
+  min-width: 200px;
+}
+
+.skip-appointment-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: var(--emerald-900);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 2px;
+}
+
+.skip-appointment-hint {
+  font-size: 0.84rem;
+  color: var(--ink-500);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.btn-skip-appointment {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-skip-appointment.disabled {
+  background: var(--marble-200);
+  color: var(--ink-500);
+  border: 1px solid var(--border-card);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.btn-skip-appointment.active {
+  background: var(--emerald-600);
+  color: var(--white);
+  border: 1px solid var(--emerald-700);
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.3);
+  animation: pulseButton 2s infinite;
+}
+
+.btn-skip-appointment.active:hover {
+  background: var(--emerald-700);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(5, 150, 105, 0.4);
+}
+
+@keyframes pulseButton {
+  0%, 100% { box-shadow: 0 4px 14px rgba(5, 150, 105, 0.3); }
+  50% { box-shadow: 0 4px 22px rgba(5, 150, 105, 0.55); }
+}
+
+/* Direct Meeting Fast-Track Shortcut Banner */
+.modal-skip-shortcut-banner {
+  background: linear-gradient(135deg, var(--jade-100) 0%, var(--emerald-50) 100%);
+  border: 1px solid var(--jade-300);
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.modal-skip-shortcut-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.84rem;
+  color: var(--emerald-900);
+  flex: 1;
+  min-width: 220px;
+}
+
+.modal-skip-shortcut-info strong {
+  color: var(--emerald-800);
+}
+
+.btn-modal-skip-direct {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--emerald-600);
+  color: var(--white);
+  border: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-modal-skip-direct:hover {
+  background: var(--emerald-700);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(5, 150, 105, 0.25);
+}
+
+.option-card-title {
+  font-weight: 700;
+  color: var(--emerald-900);
+}
+
+.option-card-desc {
+  font-size: 0.85rem;
+  color: var(--ink-700);
+  margin-top: 2px;
+}
+
+.option-card-check {
+  color: var(--emerald-600);
+  flex-shrink: 0;
+}
+

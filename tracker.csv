@@ -1,0 +1,44 @@
+id,type,severity,module,title,status,next_owner,files,last_updated,updated_by,notes
+QA-001,bug,critical,M1 Scheduling buttons,Skip/Schedule buttons opened Step 1 instead of calendar,DONE - VERIFIED,-,client/src/App.jsx,2026-09-27 22:40 IST,QA,Verified QA round 3 (all 10 schedule buttons)
+QA-002,bug,high,M1 Scheduling buttons,Request Talent must pre-select Staffing,DONE - VERIFIED,-,client/src/App.jsx,2026-09-27 22:40 IST,QA,Verified QA round 3
+QA-003,bug,high,M1 Scheduling buttons,About Sustainable IT button pre-selects general service,DONE - VERIFIED,-,client/src/components/AboutPage.jsx,2026-09-27 22:40 IST,QA,Verified in code (AboutPage.jsx:151)
+QA-022,ux,low,M1 Scheduling buttons,"Show ""Booking for: <service>"" chip on calendar",DONE - VERIFIED,-,client/src/components/AppointmentBookingCalendar.jsx,2026-09-27 22:55 IST,QA,Badge shows selected service / generic consultation
+QA-004,bug,high,M2 Header & navigation,"Mobile header: hamburger + drawer, no clipped CTAs; no wrap at 1366px",DONE - VERIFIED,-,"Header.jsx, Header.css",2026-09-27 23:10 IST,QA,"375px header fits, drawer works"
+QA-005,bug,high,M2 Header & navigation,Services dropdown anchors land on correct card,DONE - VERIFIED,-,"ServicesPage.jsx/.css, App.jsx, Header.jsx",2026-09-27 23:30 IST,QA,All paths land at 110px (desktop + mobile). Round-5 fails partly a hidden-tab test artifact.
+QA-010,bug,medium,M2 Header & navigation,Hash page switch scrolls to top,DONE - VERIFIED,-,App.jsx,2026-09-27 22:55 IST,QA,All hash page switches end at scrollY 0
+QA-018,a11y,low,M2 Header & navigation,"Nav & dropdown items are real <a href> links, keyboard reachable",DONE - VERIFIED,-,Header.jsx,2026-09-27 22:55 IST,QA,"Nav + dropdown items are <a href>, keyboard reachable, aria on trigger"
+QA-006,bug,medium,M3 Questionnaire & booking,Notes leak between sessions,DONE - VERIFIED,-,"QuestionnaireModal.jsx, AppointmentBookingCalendar.jsx",2026-09-27 23:40 IST,QA,No leak between sessions; leaf note still carries
+QA-007,spec,medium,M3 Questionnaire & booking,"Remove ""phone call"" wording",DONE - VERIFIED,-,AppointmentBookingCalendar.jsx,2026-09-27 23:40 IST,QA,No phone call wording
+QA-012,ux,low,M3 Questionnaire & booking,"""Select a time slot"" hint when submit disabled",DONE - VERIFIED,-,AppointmentBookingCalendar.jsx,2026-09-27 23:40 IST,QA,"Hint shown, submit disabled until slot"
+QA-013,ux,low,M3 Questionnaire & booking,Steps 3-5 labelled (Optional),DONE - VERIFIED,-,QuestionnaireModal.jsx,2026-09-27 23:40 IST,QA,Steps 3-5 labelled; step 2 gap logged as QA-024
+QA-014,ux,low,M3 Questionnaire & booking,Unified MSV-2026-XXXX reference IDs,DONE - VERIFIED,-,both receipts,2026-09-27 23:40 IST,QA,MSV-2026-32MY / MSV-2026-GQGD
+QA-016,a11y,medium,M3 Questionnaire & booking,"Modal role=dialog, Escape, focus trap/return",DONE - VERIFIED,-,QuestionnaireModal.jsx,2026-09-27 23:10 IST,QA,"Focus trap, Shift+Tab wrap, focus return all pass"
+QA-017,a11y,low,M3 Questionnaire & booking,Labels linked to inputs + autocomplete,DONE - VERIFIED,-,"QuestionnaireModal.jsx, AppointmentBookingCalendar.jsx",2026-09-27 23:40 IST,QA,Labels + autocomplete on both forms
+QA-020,ux,medium,M3 Questionnaire & booking,ET label + visitor local time,DONE - VERIFIED,-,AppointmentBookingCalendar.jsx,2026-09-27 23:40 IST,QA,ET + correct local time
+QA-008,spec,medium,M4 Content pages,Hero metrics 99.98% / 40%,DONE - VERIFIED,-,Hero.jsx,2026-09-27 23:50 IST,QA,500+ / 99.98% / 40% / Worldwide
+QA-009,spec,medium,M4 Content pages,"Columbus, Ohio on About page",DONE - VERIFIED,-,"AboutPage.jsx, Footer.jsx",2026-09-27 23:50 IST,QA,"Columbus, Ohio on About + footer"
+QA-011,spec,low,M4 Content pages,Mascot names Leo / Alex / Pip visible,DONE - VERIFIED,-,Services.jsx/.css,2026-09-27 23:50 IST,QA,Leo / Alex / Pip badges visible
+QA-015,spec,low,M4 Content pages,SLA tiers section on Services page,DONE - VERIFIED,-,ServicesPage.jsx/.css,2026-09-27 23:50 IST,QA,Silver / Gold / Platinum tiers present
+QA-021,content,low,M4 Content pages,Footer uses domain email,DONE - VERIFIED,-,Footer.jsx,2026-09-27 23:50 IST,QA,hello@mansalvic.com
+DES-001,design,required,M5 Theme,"Green sustainable + Indo-Islamic theme, criteria A1-A8",DONE - VERIFIED,-,"index.css, index.html, all components",2026-09-28 09:05 IST,QA,A1-A8 pass; services-page icons follow-up in QA-025
+QA-019,infra,medium,Infra,Use Firestore emulator in dev,WONTFIX - accepted,-,client/src/firebase.js,2026-09-27 22:40 IST,QA,No Java locally; QA uses qa-test-*@example.com and lists records for deletion
+IMP-01,improvement,-,Backlog,"Trust signals: client logos, testimonials, case studies, partner badges",TODO,DEV,,2026-09-27 22:40 IST,QA,
+IMP-02,improvement,-,Backlog,"""How engagement works"" 3-step strip with real SLAs",DONE - VERIFIED,-,"client/src/components/EngagementProcess.jsx, client/src/components/EngagementProcess.css",2026-09-28 14:20 IST,QA,3-step process section live
+IMP-03,improvement,-,Backlog,Back up hero metrics with source / case study,TODO,DEV,,2026-09-27 22:40 IST,QA,
+IMP-04,improvement,-,Backlog,"Booking: auto timezone, US holidays, .ics email, reschedule links, spam protection",DONE - VERIFIED,-,"AppointmentBookingCalendar.jsx, server/services/emailService.js",2026-09-28 15:10 IST,QA,".ics + Google link: correct EDT/EST UTC, 30 min, email DTSTART/DTEND; extras in IMP-04b"
+IMP-05,improvement,-,Backlog,Carry questionnaire answers into booking,TODO,DEV,,2026-09-27 22:40 IST,QA,
+IMP-06,improvement,-,Backlog,FAQ + Insights/Blog section,DONE - VERIFIED,-,"client/src/components/FAQSection.jsx, client/src/components/FAQSection.css",2026-09-28 14:20 IST,QA,7-item FAQ accordion live
+IMP-07,improvement,-,Backlog,"SEO: real routes, per-page meta, schema.org",TODO,DEV,,2026-09-27 22:40 IST,QA,
+IMP-08,improvement,-,Backlog,Reduce header CTA overload to 1 primary + 1 secondary,WONTFIX - accepted,-,"client/src/components/Header.jsx, client/src/components/Header.css",2026-09-28 15:10 IST,QA,Spec 4.1 requires 3 header actions (QA-029)
+ADMIN,test,-,M6 Admin portal,Test #admin portal,DONE - VERIFIED,-,server/routes/telemetry.js;server/routes/leads.js,2026-09-28 09:55 IST,QA,"Gate, dashboard, tabs, leads & appointments visible; security follow-ups in QA-027/028"
+QA-023,a11y,low,M2 Header & navigation,Escape should close the mobile drawer,DONE - VERIFIED,-,Header.jsx,2026-09-27 23:10 IST,QA,Escape closes drawer
+QA-024,ux,low,M3 Questionnaire & booking,Step 2 advances with no selection but is not labelled (Optional),DONE - VERIFIED,-,QuestionnaireModal.jsx,2026-09-27 23:50 IST,QA,Step 2 now validates with message
+CLEANUP-R6,data,-,Infra,"Delete QA test records MSV-2026-32MY (lead), MSV-2026-GQGD (appointment)",DONE - VERIFIED,-,Firestore,2026-09-27 23:50 IST,QA,DEV reports records deleted (round 7)
+QA-025,a11y,low,M5 Theme,Services page: 55/82 icons missing aria-hidden,DONE - VERIFIED,-,ServicesPage.jsx,2026-09-28 09:55 IST,QA,0/81 icons missing aria-hidden
+QA-026,bug,high,M6 Admin portal,Admin does not show website leads/bookings (Firestore vs PostgreSQL),DONE - VERIFIED,-,"QuestionnaireModal.jsx, AppointmentBookingCalendar.jsx, AdminDashboard.jsx, server/routes/leads.js",2026-09-28 09:55 IST,QA,Leads POST /api/leads 201; admin shows web inquiries + video appointments
+QA-027,security,medium,M6 Admin portal,"Replace default admin123 passcode, rate-limit login, business email for outbox",DONE - VERIFIED,-,"server/.env, server/middleware/auth.js, client/src/components/AdminDashboard.jsx",2026-09-28 11:00 IST,QA,"Default rejected, token session, logout revokes server-side, rate limit, domain outbox"
+QA-028,bug,low,M6 Admin portal,"Admin lead cards show ""Submitted: Invalid Date""",DONE - VERIFIED,-,client/src/components/AdminDashboard.jsx,2026-09-28 11:00 IST,QA,"Real dates shown, no Invalid Date"
+CLEANUP-R10,data,-,Infra,"Delete qa-test-r10-admin, qa-test-r9-admin leads and round-1 qa-test-zoom appointment",DONE - VERIFIED,-,Firestore,2026-09-28 11:00 IST,QA,No qa-test records visible in admin
+QA-029,spec,medium,M1 Scheduling buttons,"Header ""Start Consultation"" removed - conflicts with spec 4.1 / TC-NAV-02 (owner decision)",DONE - VERIFIED,-,"Header.jsx, Header.css",2026-09-28 15:10 IST,QA,3 header CTAs fit at 1366; TC-NAV-01/02 pass
+QA-030,a11y,low,M5 Theme,7 icons in new home sections lack aria-hidden,DONE - VERIFIED,-,"EngagementProcess.jsx, FAQSection.jsx",2026-09-28 15:10 IST,QA,0 icons missing aria-hidden on home
+IMP-04b,improvement,-,Backlog,"Booking extras: real Meet/Zoom link, reschedule/cancel links, US holiday blocking, spam protection",TODO,DEV,,2026-09-28 15:10 IST,QA,Split from IMP-04
