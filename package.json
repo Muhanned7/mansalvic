@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "Mansalvic Consulting LLC Web Application - IT Staffing & Application Development",
   "scripts": {
-    "server": "npm --prefix server start",
-    "client": "npm --prefix client dev",
-    "build": "npm --prefix client build",
-    "start": "npm --prefix server start"
+    "build": "cd client && npm run build",
+    "start": "node server/server.js",
+    "server": "cd server && npm start",
+    "client": "cd client && npm run dev"
   }
 }
