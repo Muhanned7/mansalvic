@@ -96,4 +96,9 @@ router.post('/admin/logout', (req, res) => {
   res.json({ success: true, message: 'Logged out successfully' });
 });
 
+// Telemetry Health Endpoint
+router.get('/health', (req, res) => {
+  res.json({ status: 'healthy', service: 'telemetry', timestamp: new Date().toISOString() });
+});
+
 module.exports = router;
