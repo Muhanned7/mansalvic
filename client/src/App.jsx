@@ -6,6 +6,7 @@ import Hero from './components/Hero';
 import Services from './components/Services';
 import ServicesPage from './components/ServicesPage';
 import AboutPage from './components/AboutPage';
+import NotFoundPage from './components/NotFoundPage';
 import QuestionnaireModal from './components/QuestionnaireModal';
 import AdminDashboard from './components/AdminDashboard';
 import TelemetryTracker from './components/TelemetryTracker';
@@ -35,11 +36,14 @@ export default function App() {
     }
     setVisitorId(vid);
 
-    const handleHash = () => {
+    const handleRoute = () => {
       const hash = window.location.hash.toLowerCase();
-      if (hash.includes('admin')) {
+      const pathname = window.location.pathname.toLowerCase();
+      const isRootPath = pathname === '/' || pathname === '/index.html' || pathname === '';
+
+      if (hash.includes('admin') || pathname === '/admin') {
         setIsAdminOpen(true);
-      } else if (hash.startsWith('#services')) {
+      } else if (hash.startsWith('#services') || pathname.startsWith('/services')) {
         setCurrentPage('services');
         const svc = hash.replace('#services-', '').replace('#services', '');
         setActiveServiceId(svc);
@@ -47,17 +51,22 @@ export default function App() {
         if (!svc) {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-      } else if (hash === '#about') {
+      } else if (hash === '#about' || pathname === '/about') {
         setCurrentPage('about');
         window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else if (hash === '#home' || hash === '') {
+      } else if ((hash === '#home' || hash === '') && isRootPath) {
         setCurrentPage('home');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        // Unrecognized route or hash - render 404
+        setCurrentPage('404');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     };
 
-    handleHash();
-    window.addEventListener('hashchange', handleHash);
+    handleRoute();
+    window.addEventListener('hashchange', handleRoute);
+    window.addEventListener('popstate', handleRoute);
 
     // Section visibility observer for telemetry reading tracking
     const sections = document.querySelectorAll('section');
@@ -73,13 +82,16 @@ export default function App() {
 
     return () => {
       observer.disconnect();
-      window.removeEventListener('hashchange', handleHash);
+      window.removeEventListener('hashchange', handleRoute);
+      window.removeEventListener('popstate', handleRoute);
     };
   }, []);
 
   const navigateToHome = () => {
     setCurrentPage('home');
-    window.location.hash = 'home';
+    if (window.location.hash) {
+      window.history.pushState(null, '', window.location.pathname === '/' ? '/' : '/');
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -174,6 +186,17 @@ export default function App() {
           {/* Dedicated About Us Page */}
           <AboutPage 
             onBackToHome={navigateToHome}
+            onOpenQuestionnaire={handleOpenQuestionnaire}
+          />
+        </main>
+      )}
+
+      {currentPage === '404' && (
+        <main>
+          {/* Dedicated Branded 404 Not Found Page */}
+          <NotFoundPage 
+            onNavigateHome={navigateToHome}
+            onNavigateServices={navigateToServices}
             onOpenQuestionnaire={handleOpenQuestionnaire}
           />
         </main>

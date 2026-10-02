@@ -51,14 +51,23 @@ app.get('/api/health', (req, res) => {
 const clientBuildPath = path.join(__dirname, '../client/dist');
 app.use(express.static(clientBuildPath));
 
+// Explicit 404 handler for undefined API endpoints (prevents hanging requests)
+app.all('/api/*', (req, res) => {
+  res.status(404).json({
+    success: false,
+    error: 'API Endpoint Not Found',
+    path: req.originalUrl,
+    method: req.method
+  });
+});
+
+// Serve frontend Single Page Application (SPA) for all other web pathways
 app.get('*', (req, res) => {
-  if (!req.url.startsWith('/api')) {
-    res.sendFile(path.join(clientBuildPath, 'index.html'), (err) => {
-      if (err) {
-        res.send('Mansalvic Consulting LLC Backend API Server Running on Port ' + PORT);
-      }
-    });
-  }
+  res.sendFile(path.join(clientBuildPath, 'index.html'), (err) => {
+    if (err) {
+      res.status(404).send('Mansalvic Consulting LLC - Page Not Found');
+    }
+  });
 });
 
 app.listen(PORT, () => {
