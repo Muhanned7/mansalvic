@@ -30,19 +30,25 @@ router.post('/', (req, res) => {
     let result = null;
 
     if (type === 'VISITOR_ENTER') {
-      // Dispatches real-time arrival alert email to executive inbox
-      const now = Date.now();
-      const lastAlert = visitorAlertCache.get(visitorId);
-      if (!lastAlert || (now - lastAlert > 15 * 60 * 1000)) {
-        visitorAlertCache.set(visitorId, now);
-        emailService.sendVisitorArrivalAlert({
-          visitorId,
-          ip: clientIp,
-          location: meta?.location || 'Columbus, OH, US',
-          userAgent: meta?.userAgent || req.headers['user-agent'],
-          landingPage: payload?.landingPage || '/',
-          referrer: payload?.referrer || 'Direct Visit'
-        }).catch(err => console.error('[Visitor Arrival Alert Notice]', err.message));
+      const isProduction = process.env.NODE_ENV === 'production';
+      const enableDevAlerts = process.env.ENABLE_DEV_EMAIL_ALERTS === 'true';
+
+      if (!isProduction && !enableDevAlerts) {
+        console.log(`[Telemetry] Visitor entrance logged for ${visitorId} (Email alert suppressed in development mode).`);
+      } else {
+        const now = Date.now();
+        const lastAlert = visitorAlertCache.get(visitorId);
+        if (!lastAlert || (now - lastAlert > 15 * 60 * 1000)) {
+          visitorAlertCache.set(visitorId, now);
+          emailService.sendVisitorArrivalAlert({
+            visitorId,
+            ip: clientIp,
+            location: meta?.location || 'Columbus, OH, US',
+            userAgent: meta?.userAgent || req.headers['user-agent'],
+            landingPage: payload?.landingPage || '/',
+            referrer: payload?.referrer || 'Direct Visit'
+          }).catch(err => console.error('[Visitor Arrival Alert Notice]', err.message));
+        }
       }
     } else if (type === 'CLICK') {
       result = analyticsStore.recordClick(visitorId, payload);

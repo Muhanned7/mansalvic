@@ -431,8 +431,16 @@ async function sendClientConfirmationEmail(leadData) {
     return { success: false, error: 'No recipient email provided' };
   }
 
-  const senderEmail = process.env.GMAIL_USER || process.env.SENDER_EMAIL || 'notifications@mansalvic.com';
+  const isProduction = process.env.NODE_ENV === 'production';
+  const enableDevAlerts = process.env.ENABLE_DEV_EMAIL_ALERTS === 'true';
   const clientEmail = contactInfo.email;
+
+  if (!isProduction && !enableDevAlerts) {
+    console.log(`[Client Confirmation Email] Suppressed in development mode for ${clientEmail}. Confirmation emails active in production.`);
+    return { success: true, skipped: true, reason: 'DEV_MODE_SUPPRESSED' };
+  }
+
+  const senderEmail = process.env.GMAIL_USER || process.env.SENDER_EMAIL || 'notifications@mansalvic.com';
   const hasAppointment = Boolean(answers.appointmentDate && answers.appointmentTime);
   const platformName = (answers.meetingPlatform === 'meet' || answers.meetingPlatform === 'Google Meet')
     ? 'Google Meet'
@@ -530,8 +538,15 @@ async function sendLeadNotificationEmail(leadData) {
   let clientResult = { success: false, previewUrl: null };
 
   // 1. Dispatch internal admin notification
-  try {
-    const transport = await getTransporter();
+  const isProduction = process.env.NODE_ENV === 'production';
+  const enableDevAlerts = process.env.ENABLE_DEV_EMAIL_ALERTS === 'true';
+
+  if (!isProduction && !enableDevAlerts) {
+    console.log(`[Admin Lead Alert] Suppressed in development mode for admin (${adminEmail}). Lead alerts active in production.`);
+    adminResult = { success: true, skipped: true, reason: 'DEV_MODE_SUPPRESSED' };
+  } else {
+    try {
+      const transport = await getTransporter();
     const attachments = [];
     if (answers.appointmentDate && answers.appointmentTime) {
       const startUtcDate = getUtcDateForNewYork(answers.appointmentDate, answers.appointmentTime);
@@ -600,6 +615,7 @@ async function sendLeadNotificationEmail(leadData) {
       recipientType: 'ADMIN'
     });
     adminResult = { success: false, error: err.message };
+    }
   }
 
   // 2. Automatically dispatch client confirmation email if email is provided
@@ -626,8 +642,16 @@ async function sendWorkerAssignmentEmail({ worker, client, hr, stage, agreedRate
     return { success: false, error: 'No worker email provided' };
   }
 
-  const senderEmail = process.env.GMAIL_USER || process.env.SENDER_EMAIL || 'notifications@mansalvic.com';
+  const isProduction = process.env.NODE_ENV === 'production';
+  const enableDevAlerts = process.env.ENABLE_DEV_EMAIL_ALERTS === 'true';
   const workerEmail = worker.email;
+
+  if (!isProduction && !enableDevAlerts) {
+    console.log(`[Worker Assignment Email] Suppressed in development mode for ${workerEmail}. Worker emails active in production.`);
+    return { success: true, skipped: true, reason: 'DEV_MODE_SUPPRESSED' };
+  }
+
+  const senderEmail = process.env.GMAIL_USER || process.env.SENDER_EMAIL || 'notifications@mansalvic.com';
   const stageLabels = {
     SOURCING: 'Candidate Sourcing & Pre-Screening',
     CLIENT_INTERVIEW: 'Client Interview Scheduled',
@@ -749,10 +773,19 @@ async function sendWorkerAssignmentEmail({ worker, client, hr, stage, agreedRate
 }
 
 async function sendVisitorArrivalAlert(visitorInfo) {
+  const isProduction = process.env.NODE_ENV === 'production';
+  const enableDevAlerts = process.env.ENABLE_DEV_EMAIL_ALERTS === 'true';
+  const visitorId = visitorInfo.visitorId || 'Anonymous Visitor';
+
+  // Suppress email alerts in development mode; only dispatch real alerts in production
+  if (!isProduction && !enableDevAlerts) {
+    console.log(`[Visitor Alert Email] Suppressed in development mode (${visitorId}). Alerts are active in production only.`);
+    return { success: true, skipped: true, reason: 'DEV_MODE_SUPPRESSED' };
+  }
+
   const adminEmail = process.env.ADMIN_EMAIL || 'hello@mansalvic.com';
   const senderEmail = process.env.SENDER_EMAIL || process.env.GMAIL_USER || process.env.SMTP_USER || 'notifications@mansalvic.com';
   
-  const visitorId = visitorInfo.visitorId || 'Anonymous Visitor';
   const ip = visitorInfo.ip || '127.0.0.1';
   const location = visitorInfo.location || 'Columbus, OH, US';
   const userAgent = visitorInfo.userAgent || 'Desktop Browser';
