@@ -18,7 +18,7 @@ import {
   ExternalLink
 } from 'lucide-react';
 import { collection, addDoc, getDocs, query, where, serverTimestamp } from 'firebase/firestore';
-import { db } from '../firebase';
+import { db, COLLECTIONS } from '../firebase';
 import './AppointmentBookingCalendar.css';
 
 const TIME_SLOTS = [
@@ -82,7 +82,7 @@ export default function AppointmentBookingCalendar({
       setLoadingSlots(true);
       try {
         const q = query(
-          collection(db, 'appointments'),
+          collection(db, COLLECTIONS.APPOINTMENTS),
           where('appointmentDate', '==', selectedDate)
         );
         const querySnapshot = await getDocs(q);
@@ -179,7 +179,7 @@ export default function AppointmentBookingCalendar({
       const friendlyRef = 'MSV-2026-' + Math.random().toString(36).substring(2, 6).toUpperCase();
 
       // 1. Save to appointments collection
-      const appointmentRef = await addDoc(collection(db, 'appointments'), {
+      const appointmentRef = await addDoc(collection(db, COLLECTIONS.APPOINTMENTS), {
         referenceCode: friendlyRef,
         serviceType: serviceType || 'general',
         appointmentDate: selectedDate,
@@ -198,7 +198,7 @@ export default function AppointmentBookingCalendar({
       });
 
       // 2. Also register lead in 'leads' collection
-      await addDoc(collection(db, 'leads'), {
+      await addDoc(collection(db, COLLECTIONS.LEADS), {
         referenceCode: friendlyRef,
         serviceType: serviceType || 'general',
         leadType: 'fast_track_appointment',

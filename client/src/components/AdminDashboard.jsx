@@ -6,7 +6,7 @@ import {
   Calendar, Video, Clock, LogOut, ExternalLink, Plus, UserPlus
 } from 'lucide-react';
 import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../firebase';
+import { db, COLLECTIONS } from '../firebase';
 
 // Helper for formatting any timestamp (Firestore Timestamp, ISO string, milliseconds) safely without Invalid Date (QA-028)
 const formatDateTime = (val) => {
@@ -176,7 +176,7 @@ export default function AdminDashboard({ isOpen, onClose }) {
       // 5. Fetch Directly from Firestore 'appointments' (QA-026: Show scheduled video bookings in admin)
       let aptData = [];
       try {
-        const aptSnap = await getDocs(collection(db, 'appointments'));
+        const aptSnap = await getDocs(collection(db, COLLECTIONS.APPOINTMENTS));
         aptSnap.forEach(docSnap => {
           aptData.push({ id: docSnap.id, ...docSnap.data() });
         });
@@ -193,7 +193,7 @@ export default function AdminDashboard({ isOpen, onClose }) {
       // 6. Fetch Directly from Firestore 'leads' (QA-026: Bridge Firestore vs PostgreSQL split)
       let firestoreLeads = [];
       try {
-        const leadSnap = await getDocs(collection(db, 'leads'));
+        const leadSnap = await getDocs(collection(db, COLLECTIONS.LEADS));
         leadSnap.forEach(docSnap => {
           firestoreLeads.push({ id: docSnap.id, ...docSnap.data() });
         });

@@ -13,4 +13,12 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
+
+// Isolate development test data from live production data
+export const isProd = import.meta.env.PROD;
+export const COLLECTIONS = {
+  LEADS: isProd ? 'leads' : 'dev_leads',
+  APPOINTMENTS: isProd ? 'appointments' : 'dev_appointments'
+};
+
 export default app;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { X, CheckCircle2, ChevronRight, ChevronLeft, Send, Sparkles, ShieldCheck, Calendar, Video } from 'lucide-react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import { db } from '../firebase';
+import { db, COLLECTIONS } from '../firebase';
 import AppointmentBookingCalendar from './AppointmentBookingCalendar';
 import './QuestionnaireModal.css';
 
@@ -201,7 +201,7 @@ export default function QuestionnaireModal({
       const friendlyLeadId = 'MSV-2026-' + Math.random().toString(36).substring(2, 6).toUpperCase();
 
       // 1. Store directly into Firebase Firestore 'leads' collection
-      const docRef = await addDoc(collection(db, 'leads'), {
+      const docRef = await addDoc(collection(db, COLLECTIONS.LEADS), {
         referenceCode: friendlyLeadId,
         serviceType: activeService || 'general',
         answers,
