@@ -4,4 +4,4 @@ Allow: /
 Disallow: /api/
 Disallow: /#admin
 
-Sitemap: https://mansalvic.org/sitemap.xml
+Sitemap: https://mansalvic.com/sitemap.xml
