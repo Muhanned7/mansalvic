@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const https = require('https');
 const analyticsStore = require('./analyticsStore');
 
 let transporter = null;
@@ -69,6 +70,106 @@ async function getTransporter() {
   }
 
   return transporter;
+}
+
+async function sendViaResend({ from, to, replyTo, subject, html, attachments }) {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) return null;
+
+  return new Promise((resolve) => {
+    // If a custom RESEND_FROM is defined (e.g. hello@mansalvic.com once domain verified), use it.
+    // Otherwise fallback to onboarding@resend.dev (Resend's verified test address)
+    const sender = process.env.RESEND_FROM || 'Mansalvic Consulting <onboarding@resend.dev>';
+    const recipients = Array.isArray(to) ? to : [to];
+
+    const bodyObj = {
+      from: sender,
+      to: recipients,
+      subject,
+      html
+    };
+
+    if (replyTo) {
+      bodyObj.reply_to = replyTo;
+    }
+
+    if (attachments && attachments.length > 0) {
+      bodyObj.attachments = attachments.map(a => ({
+        filename: a.filename,
+        content: Buffer.isBuffer(a.content) 
+          ? a.content.toString('base64') 
+          : Buffer.from(a.content).toString('base64')
+      }));
+    }
+
+    const payload = JSON.stringify(bodyObj);
+
+    const req = https.request('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(payload)
+      },
+      timeout: 8000
+    }, (res) => {
+      let data = '';
+      res.on('data', chunk => data += chunk);
+      res.on('end', () => {
+        try {
+          const parsed = JSON.parse(data);
+          if (res.statusCode >= 200 && res.statusCode < 300) {
+            console.log(`[Resend HTTPS Dispatch] Email sent to ${recipients.join(', ')}. Message ID: ${parsed.id}`);
+            resolve({ success: true, messageId: parsed.id });
+          } else {
+            console.error('[Resend API Error]', parsed);
+            resolve({ success: false, error: parsed.message || 'Resend error' });
+          }
+        } catch (e) {
+          resolve({ success: false, error: data });
+        }
+      });
+    });
+
+    req.on('error', (err) => {
+      console.error('[Resend Request Error]', err.message);
+      resolve({ success: false, error: err.message });
+    });
+
+    req.on('timeout', () => {
+      req.destroy();
+      resolve({ success: false, error: 'Resend request timeout' });
+    });
+
+    req.write(payload);
+    req.end();
+  });
+}
+
+async function sendMailViaProvider({ from, to, replyTo, subject, html, attachments }) {
+  if (process.env.RESEND_API_KEY) {
+    try {
+      const resendRes = await sendViaResend({ from, to, replyTo, subject, html, attachments });
+      if (resendRes && resendRes.success) {
+        return resendRes;
+      }
+      console.warn('[Email Provider] Resend did not return success, trying SMTP fallback...');
+    } catch (rErr) {
+      console.warn('[Email Provider] Resend exception:', rErr.message);
+    }
+  }
+
+  const transport = await getTransporter();
+  const info = await transport.sendMail({
+    from,
+    to,
+    replyTo,
+    subject,
+    html,
+    attachments
+  });
+  const previewUrl = nodemailer.getTestMessageUrl(info) || null;
+  return { success: true, messageId: info.messageId, previewUrl };
 }
 
 function getUtcDateForNewYork(dateStr, timeStr) {
@@ -504,21 +605,23 @@ async function sendClientConfirmationEmail(leadData) {
       attachments
     };
 
-    const info = await transport.sendMail(mailOptions);
-    const previewUrl = nodemailer.getTestMessageUrl(info) || null;
+    const deliveryResult = await sendMailViaProvider(mailOptions);
+    if (!deliveryResult.success) {
+      throw new Error(deliveryResult.error || 'Failed to dispatch client confirmation email');
+    }
 
     const emailLog = analyticsStore.addEmailLog({
       to: clientEmail,
       subject: mailOptions.subject,
       html: htmlContent,
-      previewUrl: previewUrl,
+      previewUrl: deliveryResult.previewUrl || null,
       status: 'SENT',
-      messageId: info.messageId,
+      messageId: deliveryResult.messageId,
       recipientType: 'CLIENT'
     });
 
-    console.log(`[Client Email Dispatch] Successfully sent confirmation to ${clientEmail}. Preview URL: ${previewUrl || 'N/A'}`);
-    return { success: true, messageId: info.messageId, previewUrl, emailLog };
+    console.log(`[Client Email Dispatch] Successfully sent confirmation to ${clientEmail}. ID: ${deliveryResult.messageId}`);
+    return { success: true, messageId: deliveryResult.messageId, previewUrl: deliveryResult.previewUrl, emailLog };
   } catch (err) {
     console.error('[Client Email Error]', err);
     analyticsStore.addEmailLog({
@@ -595,21 +698,23 @@ async function sendLeadNotificationEmail(leadData) {
       attachments
     };
 
-    const info = await transport.sendMail(mailOptions);
-    const previewUrl = nodemailer.getTestMessageUrl(info) || null;
+    const deliveryResult = await sendMailViaProvider(mailOptions);
+    if (!deliveryResult.success) {
+      throw new Error(deliveryResult.error || 'Failed to dispatch admin lead notification');
+    }
 
     const emailLog = analyticsStore.addEmailLog({
       to: adminEmail,
       subject: mailOptions.subject,
       html: htmlContent,
-      previewUrl: previewUrl,
+      previewUrl: deliveryResult.previewUrl || null,
       status: 'SENT',
-      messageId: info.messageId,
+      messageId: deliveryResult.messageId,
       recipientType: 'ADMIN'
     });
 
-    console.log(`[Admin Email Dispatch] Sent to ${adminEmail}. Preview URL: ${previewUrl || 'N/A'}`);
-    adminResult = { success: true, messageId: info.messageId, previewUrl, emailLog };
+    console.log(`[Admin Email Dispatch] Sent to ${adminEmail}. ID: ${deliveryResult.messageId}`);
+    adminResult = { success: true, messageId: deliveryResult.messageId, previewUrl: deliveryResult.previewUrl, emailLog };
   } catch (err) {
     console.error('[Admin Email Error]', err);
     analyticsStore.addEmailLog({
@@ -875,16 +980,18 @@ async function sendVisitorArrivalAlert(visitorInfo) {
       html: htmlContent
     };
 
-    const info = await transport.sendMail(mailOptions);
-    const previewUrl = nodemailer.getTestMessageUrl(info) || null;
+    const deliveryResult = await sendMailViaProvider(mailOptions);
+    if (!deliveryResult.success) {
+      throw new Error(deliveryResult.error || 'Failed to dispatch visitor alert');
+    }
 
     const emailLog = analyticsStore.addEmailLog({
       to: adminEmail,
       subject,
       html: htmlContent,
-      previewUrl,
+      previewUrl: deliveryResult.previewUrl || null,
       status: 'SENT',
-      messageId: info.messageId,
+      messageId: deliveryResult.messageId,
       recipientType: 'ADMIN'
     });
 
@@ -944,21 +1051,23 @@ async function sendTestEmail(toEmail) {
       html: htmlContent
     };
 
-    const info = await transport.sendMail(mailOptions);
-    const previewUrl = nodemailer.getTestMessageUrl(info) || null;
+    const deliveryResult = await sendMailViaProvider(mailOptions);
+    if (!deliveryResult.success) {
+      throw new Error(deliveryResult.error || 'Failed to dispatch test verification email');
+    }
 
     const emailLog = analyticsStore.addEmailLog({
       to: targetEmail,
       subject,
       html: htmlContent,
-      previewUrl,
+      previewUrl: deliveryResult.previewUrl || null,
       status: 'SENT',
-      messageId: info.messageId,
+      messageId: deliveryResult.messageId,
       recipientType: 'TEST'
     });
 
-    console.log(`[Test Email Dispatch] Verified delivery to ${targetEmail}. Message ID: ${info.messageId}`);
-    return { success: true, messageId: info.messageId, previewUrl, emailLog };
+    console.log(`[Test Email Dispatch] Verified delivery to ${targetEmail}. Message ID: ${deliveryResult.messageId}`);
+    return { success: true, messageId: deliveryResult.messageId, previewUrl: deliveryResult.previewUrl, emailLog };
   } catch (err) {
     console.error('[Test Email Error]', err);
     analyticsStore.addEmailLog({
