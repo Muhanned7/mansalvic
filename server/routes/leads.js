@@ -63,25 +63,27 @@ router.post('/', async (req, res) => {
       mongoId: mongoRequirement?._id
     });
 
-    // 5. Trigger email notification (both admin alert and client confirmation)
-    const emailResult = await sendLeadNotificationEmail({
-      ...leadRecord,
-      assignedHr,
-      referenceCode: req.body.referenceCode || leadRecord.referenceCode
-    });
-
-    leadRecord.emailStatus = emailResult.success ? 'SENT' : 'FAILED';
-    leadRecord.emailPreviewUrl = emailResult.previewUrl || null;
-    leadRecord.clientEmailPreviewUrl = emailResult.client?.previewUrl || null;
-
+    // 5. Respond immediately to the frontend so the client UI never hangs
     res.status(201).json({
       success: true,
       message: 'Thank you! Your inquiry has been stored across our PostgreSQL & MongoDB systems. An HR talent partner has been assigned.',
       clientId: pgClient.id,
       assignedHr: assignedHr ? { name: assignedHr.full_name, title: assignedHr.title, email: assignedHr.email } : null,
-      mongoRequirementId: mongoRequirement?._id,
-      emailPreviewUrl: emailResult.previewUrl,
-      clientEmailPreviewUrl: emailResult.client?.previewUrl || null
+      mongoRequirementId: mongoRequirement?._id
+    });
+
+    // 6. Trigger email notification asynchronously in the background (non-blocking)
+    sendLeadNotificationEmail({
+      ...leadRecord,
+      assignedHr,
+      referenceCode: req.body.referenceCode || leadRecord.referenceCode
+    }).then(emailResult => {
+      leadRecord.emailStatus = emailResult.success ? 'SENT' : 'FAILED';
+      leadRecord.emailPreviewUrl = emailResult.previewUrl || null;
+      leadRecord.clientEmailPreviewUrl = emailResult.client?.previewUrl || null;
+    }).catch(emailErr => {
+      console.error('[Async Email Dispatch Error]', emailErr.message);
+      leadRecord.emailStatus = 'FAILED';
     });
   } catch (error) {
     console.error('Error handling lead submission:', error);

@@ -217,9 +217,12 @@ export default function AppointmentBookingCalendar({
 
       // 3. Mirror into Backend Database (PostgreSQL + MongoDB + Analytics)
       try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 4000);
         await fetch('/api/leads', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
+          signal: controller.signal,
           body: JSON.stringify({
             answers: {
               appointmentDate: selectedDate,
@@ -238,6 +241,7 @@ export default function AppointmentBookingCalendar({
             source: 'calendar_booking'
           })
         });
+        clearTimeout(timeoutId);
       } catch (apiErr) {
         console.warn('Backend API booking mirror notice:', apiErr);
       }

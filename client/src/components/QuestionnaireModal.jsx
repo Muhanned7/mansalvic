@@ -213,9 +213,12 @@ export default function QuestionnaireModal({
 
       // 2. Mirror into Backend Database (PostgreSQL + MongoDB + Analytics)
       try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 4000);
         await fetch('/api/leads', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
+          signal: controller.signal,
           body: JSON.stringify({
             answers,
             contactInfo,
@@ -225,6 +228,7 @@ export default function QuestionnaireModal({
             source: 'web_questionnaire'
           })
         });
+        clearTimeout(timeoutId);
       } catch (apiErr) {
         console.warn('Backend API leads mirror notice:', apiErr);
       }

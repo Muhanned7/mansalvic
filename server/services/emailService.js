@@ -18,7 +18,10 @@ async function getTransporter() {
         auth: {
           user: gmailUser,
           pass: gmailPass
-        }
+        },
+        connectionTimeout: 5000,
+        greetingTimeout: 5000,
+        socketTimeout: 5000
       });
       console.log(`[Email Service] Authenticated with Gmail service (${gmailUser})`);
       return transporter;
@@ -36,7 +39,10 @@ async function getTransporter() {
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS
-      }
+      },
+      connectionTimeout: 5000,
+      greetingTimeout: 5000,
+      socketTimeout: 5000
     });
     console.log(`[Email Service] Authenticated with SMTP host ${process.env.SMTP_HOST}`);
     return transporter;
