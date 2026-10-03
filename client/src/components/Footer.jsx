@@ -27,7 +27,7 @@ export default function Footer({ onOpenQuestionnaire, onOpenAdmin, onNavigateSer
             </p>
 
             <div className="footer-location">
-              <MapPin size={16} aria-hidden="true" /> Headquartered in Columbus, Ohio, US
+              <MapPin size={16} aria-hidden="true" /> Headquartered in Columbus, Ohio, US • Global Client Operations (US, Canada, Europe, Middle East, Asia)
             </div>
           </div>
 
