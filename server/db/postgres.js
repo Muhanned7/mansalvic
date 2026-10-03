@@ -1,82 +1,8 @@
 const { Pool } = require('pg');
 
-// Initial seed HR Managers for Offshore Technical Recruitment
-const SEED_HR_MANAGERS = [
-  {
-    id: 'hr_nair_01',
-    full_name: 'Priya Nair',
-    email: 'p.nair@mansalvic.com',
-    phone: '+1 (614) 555-0182',
-    title: 'Lead Offshore Talent Acquisition Partner',
-    offshore_region: 'India & South Asia',
-    status: 'ACTIVE',
-    active_client_count: 2
-  },
-  {
-    id: 'hr_mendoza_02',
-    full_name: 'Carlos Mendoza',
-    email: 'c.mendoza@mansalvic.com',
-    phone: '+1 (614) 555-0194',
-    title: 'Nearshore & LatAm Engineering Recruiter',
-    offshore_region: 'Latin America (US-Aligned)',
-    status: 'ACTIVE',
-    active_client_count: 1
-  },
-  {
-    id: 'hr_khan_03',
-    full_name: 'Aisha Khan',
-    email: 'a.khan@mansalvic.com',
-    phone: '+1 (614) 555-0177',
-    title: 'Principal Technical Recruitment Strategist',
-    offshore_region: 'Global Enterprise Delivery',
-    status: 'ACTIVE',
-    active_client_count: 0
-  }
-];
-
-// Initial seed Offshore Technical Workers / Engineers
-const SEED_WORKERS = [
-  {
-    id: 'wrk_leo_01',
-    full_name: 'Leo Vance',
-    email: 'leo.vance@offshore.mansalvic.com',
-    role: 'Senior Full-Stack Architect',
-    skills: 'React, Node.js, TypeScript, Next.js, PostgreSQL, Microservices',
-    timezone: 'Offshore US-Aligned (EST Overlap 9am-6pm)',
-    hourly_rate: 55.00,
-    availability: 'AVAILABLE'
-  },
-  {
-    id: 'wrk_maya_02',
-    full_name: 'Maya Lin',
-    email: 'maya.lin@offshore.mansalvic.com',
-    role: 'Cloud DevOps & SRE Specialist',
-    skills: 'AWS, Azure, Kubernetes, Terraform, Docker, CI/CD, Zero-Downtime SLAs',
-    timezone: 'Offshore US-Aligned (CST Overlap)',
-    hourly_rate: 65.00,
-    availability: 'AVAILABLE'
-  },
-  {
-    id: 'wrk_pip_03',
-    full_name: 'Pip Patel',
-    email: 'pip.patel@offshore.mansalvic.com',
-    role: '24/7 Platform Reliability Engineer',
-    skills: 'Database Optimization, Security Patching, Python, Redis, Linux SysAdmin',
-    timezone: 'Offshore US-Aligned (24/7 Night/Day Shift)',
-    hourly_rate: 50.00,
-    availability: 'AVAILABLE'
-  },
-  {
-    id: 'wrk_elena_04',
-    full_name: 'Elena Rostova',
-    email: 'elena.r@offshore.mansalvic.com',
-    role: 'Mobile Apps & Cross-Platform Lead',
-    skills: 'React Native, Flutter, Swift, Kotlin, GraphQL, Real-Time WebSockets',
-    timezone: 'Offshore US-Aligned (EST Overlap)',
-    hourly_rate: 60.00,
-    availability: 'AVAILABLE'
-  }
-];
+// Seed arrays start empty so only real team members added by admin are present
+const SEED_HR_MANAGERS = [];
+const SEED_WORKERS = [];
 
 class PostgresDatabaseManager {
   constructor() {
