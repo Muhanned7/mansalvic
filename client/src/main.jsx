@@ -3,6 +3,20 @@ import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import './index.css';
 
+// Automatically route API requests to Render backend in production
+if (typeof window !== 'undefined') {
+  const originalFetch = window.fetch;
+  const API_HOST = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://mansalvic-org.onrender.com' : '');
+  if (API_HOST) {
+    window.fetch = function(url, options) {
+      if (typeof url === 'string' && url.startsWith('/api')) {
+        return originalFetch(`${API_HOST}${url}`, options);
+      }
+      return originalFetch(url, options);
+    };
+  }
+}
+
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
