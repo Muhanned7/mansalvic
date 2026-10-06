@@ -26,7 +26,7 @@ const formatDateTime = (val) => {
   return !isNaN(d.getTime()) ? d.toLocaleString() : 'Recent';
 };
 
-export default function AdminDashboard({ isOpen, onClose }) {
+export default function AdminDashboard({ isOpen = true, onClose, onBackToHome }) {
   const [sessionToken, setSessionToken] = useState(sessionStorage.getItem('admin_session_token') || '');
   const [inputPasscode, setInputPasscode] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -514,23 +514,30 @@ export default function AdminDashboard({ isOpen, onClose }) {
     return () => clearInterval(interval);
   }, [isOpen, autoRefresh, sessionToken, isAuthenticated]);
 
-  if (!isOpen) return null;
+  if (isOpen !== undefined && !isOpen) return null;
+
+  const handleExit = () => {
+    if (onBackToHome) {
+      onBackToHome();
+    } else if (onClose) {
+      onClose();
+    } else {
+      window.location.hash = '';
+    }
+  };
 
   return (
-    <div className="modal-overlay" onClick={onClose} style={{ backdropFilter: 'blur(16px)', zIndex: 1100 }}>
-      <div 
-        className="modal-content" 
-        onClick={e => e.stopPropagation()} 
-        style={{
-          maxWidth: '1240px',
-          height: '88vh',
-          display: 'flex',
-          flexDirection: 'column',
-          padding: '0',
-          overflow: 'hidden',
-          borderRadius: '16px'
-        }}
-      >
+    <div 
+      className="admin-dashboard-page" 
+      style={{
+        minHeight: '100vh',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        background: '#0b1e36',
+        color: '#0f172a'
+      }}
+    >
         
         {/* Header Bar */}
         <div style={{
@@ -622,21 +629,24 @@ export default function AdminDashboard({ isOpen, onClose }) {
 
             <button
               type="button"
-              onClick={onClose}
+              onClick={handleExit}
               style={{
                 background: 'rgba(255, 255, 255, 0.1)',
-                border: 'none',
+                border: '1px solid rgba(255, 255, 255, 0.25)',
                 color: '#ffffff',
-                borderRadius: '50%',
-                width: '32px',
-                height: '32px',
+                padding: '7px 16px',
+                borderRadius: '8px',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center'
+                gap: '8px',
+                fontSize: '0.84rem',
+                fontWeight: 700,
+                transition: 'all 0.2s ease'
               }}
+              title="Return to Mansalvic Website"
             >
-              <X size={18} />
+              <span>← Back to Website</span>
             </button>
           </div>
         </div>
@@ -851,7 +861,7 @@ export default function AdminDashboard({ isOpen, onClose }) {
 
                     <button
                       type="button"
-                      onClick={() => fetchDashboardData(passcode)}
+                      onClick={() => fetchDashboardData(sessionToken)}
                       style={{
                         background: '#ffffff',
                         border: '1.5px solid #cbd5e1',
@@ -1148,7 +1158,7 @@ export default function AdminDashboard({ isOpen, onClose }) {
 
                     <button
                       type="button"
-                      onClick={() => fetchDashboardData(passcode)}
+                      onClick={() => fetchDashboardData(sessionToken)}
                       style={{
                         background: '#ffffff',
                         border: '1.5px solid #cbd5e1',
@@ -2060,8 +2070,6 @@ export default function AdminDashboard({ isOpen, onClose }) {
             </div>
           </div>
         )}
-
-      </div>
     </div>
   );
 }

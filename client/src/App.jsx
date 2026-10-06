@@ -16,14 +16,13 @@ import Footer from './components/Footer';
 import './App.css';
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState('home'); // 'home' | 'services' | 'about'
+  const [currentPage, setCurrentPage] = useState('home'); // 'home' | 'services' | 'about' | 'admin' | '404'
   const [activeServiceId, setActiveServiceId] = useState('');
   const [scrollNonce, setScrollNonce] = useState(0);
   const [isQuestionnaireOpen, setIsQuestionnaireOpen] = useState(false);
   const [questionnaireService, setQuestionnaireService] = useState('');
   const [questionnaireMode, setQuestionnaireMode] = useState('questions');
   const [questionnaireNotes, setQuestionnaireNotes] = useState('');
-  const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [visitorId, setVisitorId] = useState('');
   const [currentSection, setCurrentSection] = useState('hero');
 
@@ -42,7 +41,8 @@ export default function App() {
       const isRootPath = pathname === '/' || pathname === '/index.html' || pathname === '';
 
       if (hash.includes('admin') || pathname === '/admin') {
-        setIsAdminOpen(true);
+        setCurrentPage('admin');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       } else if (hash.startsWith('#services') || pathname.startsWith('/services')) {
         setCurrentPage('services');
         const svc = hash.replace('#services-', '').replace('#services', '');
@@ -112,6 +112,12 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const navigateToAdmin = () => {
+    setCurrentPage('admin');
+    window.location.hash = 'admin';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handleOpenQuestionnaire = (serviceId = '', mode = 'questions', initialNotes = '') => {
     const cleanServiceId = typeof serviceId === 'string' ? serviceId : '';
     const cleanMode = typeof mode === 'string' ? mode : 'questions';
@@ -121,6 +127,21 @@ export default function App() {
     setQuestionnaireNotes(cleanNotes);
     setIsQuestionnaireOpen(true);
   };
+
+  // Dedicated Full-Page Admin Command Center View
+  if (currentPage === 'admin') {
+    return (
+      <div className="app-root admin-full-page">
+        <TelemetryTracker
+          visitorId={visitorId}
+          currentSection="admin-portal"
+        />
+        <AdminDashboard
+          onBackToHome={navigateToHome}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="app-root">
@@ -205,7 +226,7 @@ export default function App() {
       {/* Footer */}
       <Footer 
         onOpenQuestionnaire={handleOpenQuestionnaire}
-        onOpenAdmin={() => setIsAdminOpen(true)}
+        onOpenAdmin={navigateToAdmin}
         onNavigateServices={navigateToServices}
         onNavigateAbout={navigateToAbout}
       />
@@ -218,12 +239,6 @@ export default function App() {
         initialService={questionnaireService}
         initialMode={questionnaireMode}
         initialRequirementsNotes={questionnaireNotes}
-      />
-
-      {/* Dedicated Passcode-Protected Admin Movement & Telemetry Endpoint Portal */}
-      <AdminDashboard
-        isOpen={isAdminOpen}
-        onClose={() => setIsAdminOpen(false)}
       />
 
     </div>

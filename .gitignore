@@ -22,3 +22,4 @@ qa/.orchestrator-state.json
 .pip-cache/
 *.log
 firebase-debug.log*
+.firebase/
