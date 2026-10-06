@@ -1,8 +1,45 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+
+    // Helper functions for validating document creation
+    function isValidLead() {
+      return request.resource.data.keys().hasAny(['contactInfo', 'answers', 'clientEmail', 'fullName', 'createdAt']);
+    }
+
+    function isValidAppointment() {
+      return request.resource.data.keys().hasAny(['date', 'time', 'clientEmail', 'clientName', 'appointmentDate']);
+    }
+
+    // Client Inquiries / Leads (Production & Development namespaces)
+    match /leads/{leadId} {
+      allow create: if isValidLead();
+      allow read: if true;
+      allow update, delete: if false;
+    }
+
+    match /dev_leads/{leadId} {
+      allow create: if isValidLead();
+      allow read: if true;
+      allow update, delete: if false;
+    }
+
+    // Video Meeting Appointments (Production & Development namespaces)
+    match /appointments/{aptId} {
+      allow create: if isValidAppointment();
+      allow read: if true;
+      allow update, delete: if false;
+    }
+
+    match /dev_appointments/{aptId} {
+      allow create: if isValidAppointment();
+      allow read: if true;
+      allow update, delete: if false;
+    }
+
+    // Deny access to any unspecified collections
     match /{document=**} {
-      allow read, write: if true;
+      allow read, write: if false;
     }
   }
 }
