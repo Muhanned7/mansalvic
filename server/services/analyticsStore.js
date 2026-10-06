@@ -9,8 +9,10 @@ class AnalyticsStore {
     this.leads = [];
     this.outbox = [];
     
-    // Seed initial mock data so dashboard is rich upon first load
-    this.seedMockData();
+    // Only seed mock data if explicitly requested in local development
+    if (process.env.NODE_ENV !== 'production' && process.env.ENABLE_MOCK_TELEMETRY === 'true') {
+      this.seedMockData();
+    }
 
     // Periodic cleanup of inactive visitors (> 5 mins)
     setInterval(() => this.cleanupInactiveVisitors(), 30000);
