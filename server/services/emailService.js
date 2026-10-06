@@ -172,6 +172,11 @@ async function sendMailViaProvider({ from, to, replyTo, subject, html, attachmen
   return { success: true, messageId: info.messageId, previewUrl };
 }
 
+function getSiteUrl() {
+  return process.env.SITE_URL || (process.env.NODE_ENV === 'production' ? 'https://mansalvic.com' : 'http://localhost:3000');
+}
+
+
 function getUtcDateForNewYork(dateStr, timeStr) {
   if (!dateStr) return new Date();
   const [year, month, day] = dateStr.split('-').map(Number);
@@ -242,6 +247,13 @@ function generateAdminEmailHtml(leadData) {
         <div class="field-group"><div class="label">Estimated Budget</div><div class="value">${answers.budget || 'N/A'}</div></div>
         
         ${contactInfo.notes ? `<div class="field-group"><div class="label">Additional Notes</div><div class="value">${contactInfo.notes}</div></div>` : ''}
+
+        <div style="text-align: center; margin-top: 24px; margin-bottom: 12px;">
+          <a href="${getSiteUrl()}/#admin" style="display: inline-block; background: #10b981; color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 700; font-size: 14px;">Open Admin Command Center</a>
+          <div style="font-size: 11px; color: #64748b; margin-top: 8px;">
+            Passcode: <code>MansalvicSecure2026!</code>
+          </div>
+        </div>
 
         <div class="footer">
           Mansalvic Consulting LLC • Ohio, US • Automated Dispatch System
@@ -854,21 +866,23 @@ async function sendWorkerAssignmentEmail({ worker, client, hr, stage, agreedRate
       html: htmlContent
     };
 
-    const info = await transport.sendMail(mailOptions);
-    const previewUrl = nodemailer.getTestMessageUrl(info) || null;
+    const deliveryResult = await sendMailViaProvider(mailOptions);
+    if (!deliveryResult.success) {
+      throw new Error(deliveryResult.error || 'Failed to dispatch worker assignment email');
+    }
 
     const emailLog = analyticsStore.addEmailLog({
       to: workerEmail,
       subject: mailOptions.subject,
       html: htmlContent,
-      previewUrl: previewUrl,
+      previewUrl: deliveryResult.previewUrl || null,
       status: 'SENT',
-      messageId: info.messageId,
+      messageId: deliveryResult.messageId,
       recipientType: 'WORKER'
     });
 
-    console.log(`[Worker Email Dispatch] Sent assignment notification to ${workerEmail}. Preview URL: ${previewUrl || 'N/A'}`);
-    return { success: true, messageId: info.messageId, previewUrl, emailLog };
+    console.log(`[Worker Email Dispatch] Sent assignment notification to ${workerEmail}. Message ID: ${deliveryResult.messageId}`);
+    return { success: true, messageId: deliveryResult.messageId, previewUrl: deliveryResult.previewUrl || null, emailLog };
   } catch (err) {
     console.error('[Worker Email Error]', err);
     analyticsStore.addEmailLog({
@@ -957,7 +971,7 @@ async function sendVisitorArrivalAlert(visitorInfo) {
             <div class="metric-value" style="font-size: 13px;">${userAgent}</div>
           </div>
           <div style="text-align: center; margin-top: 24px;">
-            <a href="http://localhost:3000/#admin" class="btn">Open Admin Command Center</a>
+            <a href="${getSiteUrl()}/#admin" class="btn">Open Admin Command Center</a>
             <div style="font-size: 11px; color: #64748b; margin-top: 8px;">
               Passcode: <code>MansalvicSecure2026!</code>
             </div>
@@ -995,8 +1009,8 @@ async function sendVisitorArrivalAlert(visitorInfo) {
       recipientType: 'ADMIN'
     });
 
-    console.log(`[Visitor Alert Email] Sent arrival alert for ${visitorId} to ${adminEmail}. Preview URL: ${previewUrl || 'N/A'}`);
-    return { success: true, messageId: info.messageId, previewUrl, emailLog };
+    console.log(`[Visitor Alert Email] Sent arrival alert for ${visitorId} to ${adminEmail}. Message ID: ${deliveryResult.messageId}`);
+    return { success: true, messageId: deliveryResult.messageId, previewUrl: deliveryResult.previewUrl || null, emailLog };
   } catch (err) {
     console.error('[Visitor Alert Email Error]', err);
     analyticsStore.addEmailLog({
