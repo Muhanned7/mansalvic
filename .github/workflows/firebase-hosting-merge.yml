@@ -30,19 +30,9 @@ jobs:
           npm run build
 
       - name: Deploy to Firebase Hosting
-        if: env.HAS_FIREBASE_SECRET == 'true'
-        env:
-          HAS_FIREBASE_SECRET: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_MANSALVIC_ORG != '' }}
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_MANSALVIC_ORG }}'
           channelId: live
           projectId: mansalvic-org
-
-      - name: Deployment Secret Notice
-        if: env.HAS_FIREBASE_SECRET != 'true'
-        env:
-          HAS_FIREBASE_SECRET: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_MANSALVIC_ORG != '' }}
-        run: |
-          echo "::notice ::Frontend build succeeded! Automated Firebase deployment is paused until the FIREBASE_SERVICE_ACCOUNT_MANSALVIC_ORG secret is added to your GitHub repository."
